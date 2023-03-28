@@ -1,4 +1,5 @@
-const {Schema, model, default: mongoose} = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const tokenSchema = new Schema ({
   login: {
@@ -11,4 +12,4 @@ const tokenSchema = new Schema ({
   }
 });
 
-module.exports = model("Token", tokenSchema);
+module.exports = mongoose.model("Tokens", tokenSchema);

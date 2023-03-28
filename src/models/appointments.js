@@ -1,9 +1,9 @@
-const {Schema, model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const appointmentSchema = new Schema ({
   userId: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'Users'
   },
   name: {
     type: String,
@@ -14,7 +14,7 @@ const appointmentSchema = new Schema ({
     required: true
   },
   date: {
-    type: DataTransfer,
+    type: Date,
     required: true
   },
   complaints: {
