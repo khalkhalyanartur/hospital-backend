@@ -23,4 +23,4 @@ const appointmentSchema = new Schema ({
   }
 });
 
-module.export = model("Appointments", appointmentSchema);
+module.exports = model("Appointments", appointmentSchema);
