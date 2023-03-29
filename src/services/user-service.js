@@ -24,6 +24,36 @@ class UserService {
       user: userDto
     }
   }
+
+  async signin(login, password) {
+    const user = await UserModel.findOne({ login });
+
+    if (!user) {
+      throw ApiError.BadRequest(`Пользователь с таким логином не найден`);
+    }
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    
+    if (!isPassEquals) {
+      throw ApiError.BadRequest("Неверный пароль");
+    }
+
+    const userDto = new UserDto(user);
+    const tokens = TokenService.generateToken({...userDto});
+
+    await TokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      user: userDto
+    }
+  }
+
+  async logout (refreshToken) {
+    console.log("1 service")
+    const token = await TokenService.removeToken(refreshToken);
+    console.log("token=", token);
+    return token;
+  }
 }
 
 module.exports = new UserService();
