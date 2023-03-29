@@ -9,7 +9,7 @@ class ApiError extends Error {
   }
 
   static BadRequest = (message, errors = []) => {
-    console.log("in BadRequest");
+
     return new ApiError(400, message, errors);
   };
 };
