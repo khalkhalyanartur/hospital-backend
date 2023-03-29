@@ -1,4 +1,4 @@
-module.exports = class ApiError extends Error {
+class ApiError extends Error {
   status;
   errors;
 
@@ -8,7 +8,10 @@ module.exports = class ApiError extends Error {
     this.errors = errors;
   }
 
-  static BadRequest(message, errors = []) {
+  static BadRequest = (message, errors = []) => {
+    console.log("in BadRequest");
     return new ApiError(400, message, errors);
   };
 };
+
+module.exports = ApiError;
