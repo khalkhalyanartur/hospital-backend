@@ -3,7 +3,13 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser =require("cookie-parser");
 const { PORT,  DB_URL } = require("./config");
+const apiRoutes = require("./src/routes/index");
 const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.use('/', apiRoutes);
 
 const loadApp = async () => {
   try {
