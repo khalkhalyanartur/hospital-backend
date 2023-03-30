@@ -14,6 +14,7 @@ class UserController {
   async registration (req, res, next) {
     try {
       const { login, password } = req.body;
+      
       const userData = await UserService.registration(login.trim(), password.trim());
       
       res.cookie("refreshToken", userData.refreshToken, refreshTokenOptions);
