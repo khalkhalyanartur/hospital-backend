@@ -14,5 +14,14 @@ class AppointmentsService {
     return newAppointment;
   }
 
+  async editAppointment(id, editedAppointment) {
+    const updatedAppointment = await AppointmentsModel.findByIdAndUpdate(
+      id,
+      editedAppointment,
+      { new: true }
+    );
+    
+    return updatedAppointment;
+  }
 }
 module.exports = new AppointmentsService();

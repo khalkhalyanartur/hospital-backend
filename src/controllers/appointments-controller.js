@@ -14,17 +14,10 @@ class AppointmentsController {
 
   async createAppointment(req, res, next) {
     try {
-      console.log("in controller create");
       const { patient, doctor, date, complaint } = req.body;
-
+      
       const { id: userId } = req.user;
-      console.log("obj=",{
-        userId,
-        patient: patient.trim(),
-        doctor: doctor.trim(),
-        date: date.trim(),
-        complaint: complaint.trim() });
-
+  
       const newAppointment = await AppointmentsService.createAppointment({
         userId,
         patient: patient.trim(),
@@ -34,6 +27,27 @@ class AppointmentsController {
       });
 
       res.status(200).send(newAppointment);
+    } catch(error) {
+      next(error);
+    }
+  }
+
+  async editAppointment (req, res, next) {
+    try {
+      const { patient, doctor, date, complaint } = req.body;
+
+      const { id } = req.params;
+
+      console.log("in controller params=",id);
+
+      const editedAppointment = await AppointmentsService.editAppointment(id, {
+        patient: patient.trim(),
+        doctor: doctor.trim(),
+        date: date.trim(),
+        complaint: complaint.trim()
+      });
+
+      res.status(200).send(editedAppointment);
     } catch(error) {
       next(error);
     }
