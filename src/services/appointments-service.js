@@ -8,9 +8,7 @@ class AppointmentsService {
   }
 
   async createAppointment(appointmentData) {
-    console.log("in service",appointmentData);
     const newAppointment = await AppointmentsModel.create(appointmentData);
-    console.log("newAppointment=",newAppointment);
     return newAppointment;
   }
 
@@ -23,5 +21,11 @@ class AppointmentsService {
     
     return updatedAppointment;
   }
+
+  async deleteAppointment(id) {
+    const deletedAppointment = await AppointmentsModel.deleteOne({ _id: id });
+    return deletedAppointment;
+  }
 }
+
 module.exports = new AppointmentsService();

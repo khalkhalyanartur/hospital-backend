@@ -7,6 +7,7 @@ const validationAppointment = require("../middlewares/validation-appointment")
 router.get('/', authorizationMiddleware, AppointmentsController.getAllAppointments);
 router.post('/create', authorizationMiddleware, AppointmentsController.createAppointment);
 router.patch('/edit/:id', authorizationMiddleware, validationAppointment, AppointmentsController.editAppointment);
+router.delete('/delete/:id', authorizationMiddleware, AppointmentsController.deleteAppointment);
 
 
 

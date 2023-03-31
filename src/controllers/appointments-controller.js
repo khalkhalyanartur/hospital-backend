@@ -53,5 +53,16 @@ class AppointmentsController {
     }
   }
 
+  async deleteAppointment (req, res, next) {
+    try {
+      const { id } = req.params
+      const deletedAppointment = await AppointmentsService.deleteAppointment(id);
+
+      res.status(200).send(deletedAppointment);
+    } catch(error) {
+      next(error)
+    }
+  }
+
 }
 module.exports = new AppointmentsController();
