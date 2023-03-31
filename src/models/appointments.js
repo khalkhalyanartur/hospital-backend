@@ -5,7 +5,7 @@ const appointmentSchema = new Schema ({
     type: Schema.Types.ObjectId,
     ref: 'Users'
   },
-  name: {
+  patient: {
     type: String,
     required: true
   },
@@ -17,7 +17,7 @@ const appointmentSchema = new Schema ({
     type: Date,
     required: true
   },
-  complaints: {
+  complaint: {
     type: String,
     required: true
   }
