@@ -17,7 +17,7 @@ const appointmentSchema = new Schema ({
     type: Date,
     required: true
   },
-  complaints: {
+  complaint: {
     type: String,
     required: true
   }
