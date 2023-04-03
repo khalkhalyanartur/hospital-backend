@@ -5,7 +5,7 @@ const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
 
 class UserService {
-  async registration (login, password) {
+  async registration(login, password) {
     const candidate = await UserModel.findOne({ login });
 
     if (candidate) {
@@ -13,10 +13,11 @@ class UserService {
     }
  
     const hashPassword = await bcrypt.hash(password, 3); 
-    const user = await UserModel.create({login, password: hashPassword });
+    const user = await UserModel.create({ login, password: hashPassword });
 
     const userDto = new UserDto(user);
-    const tokens = TokenService.generateToken({...userDto});
+    const tokens = TokenService.generateToken({ ...userDto });
+
     await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
