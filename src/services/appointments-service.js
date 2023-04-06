@@ -6,7 +6,6 @@ class AppointmentsService {
 
     return appointments;
   }
-
 }
 
 module.exports = new AppointmentsService();
