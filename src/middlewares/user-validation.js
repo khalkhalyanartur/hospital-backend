@@ -1,5 +1,6 @@
 const { check } = require('express-validator');
 const { validatorResult } = require('./validation-result');
+
 const validationRegistration = [
   check('login')
     .isString()
@@ -11,6 +12,7 @@ const validationRegistration = [
     .matches(/(?=.*\d)[a-zA-Z0-9]{6,}/),
     validatorResult
 ];
+
 const validationLogin = [
   check('login')
     .isString()
@@ -22,6 +24,7 @@ const validationLogin = [
     .notEmpty(),
   validatorResult
 ];
+
 module.exports = {
   validationRegistration,
   validationLogin
