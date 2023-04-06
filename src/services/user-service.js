@@ -11,8 +11,8 @@ class UserService {
     if (candidate) {
       throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`);
     }
- 
-    const hashPassword = await bcrypt.hash(password, 3); 
+
+    const hashPassword = await bcrypt.hash(password, 3);
     const user = await UserModel.create({ login, password: hashPassword });
 
     const userDto = new UserDto(user);
@@ -34,13 +34,13 @@ class UserService {
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
-    
+
     if (!isPassEquals) {
       throw ApiError.BadRequest("Неверный пароль");
     }
 
     const userDto = new UserDto(user);
-    const tokens = TokenService.generateToken({...userDto});
+    const tokens = TokenService.generateToken({ ...userDto });
 
     await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
@@ -50,16 +50,16 @@ class UserService {
     }
   }
 
-  async logout (refreshToken) {
+  async logout(refreshToken) {
     const token = await TokenService.removeToken(refreshToken);
     return token;
   }
 
   async refresh(refreshToken) {
     if (!refreshToken) {
-      throw ApiError.UnautharizedError(); 
+      throw ApiError.UnautharizedError();
     }
-    
+
     const userData = TokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await TokenService.findToken(refreshToken);
 
