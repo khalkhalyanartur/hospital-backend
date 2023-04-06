@@ -1,11 +1,12 @@
-const AppointmentsModel = require("../models/appointments")
+const AppointmentModel = require("../models/appointments")
 
 class AppointmentsService {
-  async getAllAppointments(id) {
-    const appointments = await AppointmentsModel.find({id});
-    
+  async getAllAppointments(userId) {
+    const appointments = await AppointmentModel.find({ userId });
+
     return appointments;
   }
 
 }
+
 module.exports = new AppointmentsService();
