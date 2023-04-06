@@ -1,5 +1,5 @@
 const ApiError = require("../exceptions/api-error");
-const TokenService = require("../services/token-service")
+const TokenService = require("../services/token-service");
 
 const authorizationMiddleware = (req, res, next) => {
   try {
@@ -8,18 +8,18 @@ const authorizationMiddleware = (req, res, next) => {
     if (!accessToken) {
       return next(ApiError.UnautharizedError());
     }
-    
+
     const userData = TokenService.validateAccessToken(accessToken);
-    
+
     if (!userData) {
       return next(ApiError.UnautharizedError());
     }
-    
-    req.user = userData
+
+    req.user = userData;
     next();
-  } catch(error) {
+  } catch (error) {
     return next(ApiError.UnautharizedError());
   }
 }
 
-module.exports = authorizationMiddleware ;
+module.exports = authorizationMiddleware;

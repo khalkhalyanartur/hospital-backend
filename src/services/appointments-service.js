@@ -1,4 +1,4 @@
-const AppointmentModel = require("../models/appointments")
+const AppointmentModel = require("../models/appointments");
 
 class AppointmentsService {
   async getAllAppointments(userId) {

@@ -1,6 +1,6 @@
 const AppointmentsService = require("../services/appointments-service");
-class AppointmentsController {
 
+class AppointmentsController {
   async getAllAppointments(req, res, next) {
     try {
       const appointments = await AppointmentsService.getAllAppointments(req.user.id);
@@ -10,6 +10,6 @@ class AppointmentsController {
       next(error);
     }
   }
-
 }
+
 module.exports = new AppointmentsController();
