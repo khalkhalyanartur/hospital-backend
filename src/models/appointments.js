@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const appointmentSchema = new Schema ({
+const appointmentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'Users'
@@ -17,7 +17,7 @@ const appointmentSchema = new Schema ({
     type: Date,
     required: true
   },
-  complaints: {
+  complaint: {
     type: String,
     required: true
   }

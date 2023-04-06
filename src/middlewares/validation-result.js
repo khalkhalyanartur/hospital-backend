@@ -5,8 +5,8 @@ const validatorResult = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     return res.status(403).json("Bad Validation");
-  } 
-  
+  }
+
   next();
 }
 

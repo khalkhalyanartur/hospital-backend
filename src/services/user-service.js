@@ -5,18 +5,19 @@ const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
 
 class UserService {
-  async registration (login, password) {
+  async registration(login, password) {
     const candidate = await UserModel.findOne({ login });
 
     if (candidate) {
       throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`);
     }
- 
-    const hashPassword = await bcrypt.hash(password, 3); 
-    const user = await UserModel.create({login, password: hashPassword });
+
+    const hashPassword = await bcrypt.hash(password, 3);
+    const user = await UserModel.create({ login, password: hashPassword });
 
     const userDto = new UserDto(user);
-    const tokens = TokenService.generateToken({...userDto});
+    const tokens = TokenService.generateToken({ ...userDto });
+
     await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
     return {
@@ -33,13 +34,13 @@ class UserService {
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
-    
+
     if (!isPassEquals) {
       throw ApiError.BadRequest("Неверный пароль");
     }
 
     const userDto = new UserDto(user);
-    const tokens = TokenService.generateToken({...userDto});
+    const tokens = TokenService.generateToken({ ...userDto });
 
     await TokenService.saveToken(userDto.id, tokens.refreshToken);
 
@@ -49,16 +50,16 @@ class UserService {
     }
   }
 
-  async logout (refreshToken) {
+  async logout(refreshToken) {
     const token = await TokenService.removeToken(refreshToken);
     return token;
   }
 
   async refresh(refreshToken) {
     if (!refreshToken) {
-      throw ApiError.UnautharizedError(); 
+      throw ApiError.UnautharizedError();
     }
-    
+
     const userData = TokenService.validateRefreshToken(refreshToken);
     const tokenFromDB = await TokenService.findToken(refreshToken);
 
